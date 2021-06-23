@@ -1,13 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+// import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { Suspense } from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import ProgressBar from "react-topbar-progress-indicator";
+const LoanComponent = React.lazy(() => import('./components/LoanCalculatorComponent'));
+
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <Router>
+    <div>
+      <Suspense fallback={<ProgressBar color="#f11946" />}>
+        <Route exact path="/" component={LoanComponent} />
+        <Route exact path="/loan" component={LoanComponent} />
+      </Suspense>
+    </div>
+  </Router>,
   document.getElementById('root')
 );
 
